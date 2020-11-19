@@ -60,10 +60,10 @@ public class LoginController {
 	
 	//AQUI SE AGREGAR LA RUTA DEL JSP
 	@RequestMapping("/verCrudEspecialidad")
-	public String regEspecialidad() { return "crudEjemplo"; }
+	public String regEspecialidad() { return "crudEspecialidad"; }
 	
 	@RequestMapping("/verCrudMedico")
-	public String regMedico() { return "crudEjemplo"; }
+	public String regMedico() { return "crudMedico"; }
 	
 	@RequestMapping("/verCrudPaciente")
 	public String regPaciente() { return "crudEjemplo"; }
