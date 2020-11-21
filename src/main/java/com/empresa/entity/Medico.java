@@ -19,7 +19,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "medico")
-
 public class Medico {
 	
 	@Id
@@ -28,7 +27,8 @@ public class Medico {
 	private String nombre;
 	private String apellido;
 	private String dni;
-	private String nrocelular;
+	private String direccion;
+	private String nroCelular;
 	private String login;
 	private String password;
 	

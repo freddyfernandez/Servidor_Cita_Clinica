@@ -13,7 +13,13 @@ import com.empresa.repository.*;
 
 public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 
-	@Query("Select a from Medico a where nombres like :nomb")
+	//metodo1
+	@Query("Select a from Medico a where nombre like :nomb")
 	public abstract List<Medico> buscarPorNombre(@Param("nomb") String filtro);
 
+	//es igual que mapear el metodo1 por ids
+	@Query("Select m from Medico m, Especialidad e where "
+			+ " m.especialidad.idEspecialidad = e.idEspecialidad and "
+			+ " m.especialidad.descripcion = :nomb")
+	public abstract List<Medico> buscarPorNombre2(@Param("nomb") String filtro);
 }

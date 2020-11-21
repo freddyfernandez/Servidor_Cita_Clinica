@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
 <jsp:include page="intranetValida.jsp" />
 <!DOCTYPE html>
 <html lang="esS" >
@@ -25,11 +27,11 @@
 <div class="container"style="margin-top: 4%">
  <h1>Crud de Medico</h1>
 		 <div class="col-md-23" >  
-			  <form id="idFormElimina" action="eliminaCrudAutor">
+			  <form id="idFormElimina" action="eliminaCrudMedico">
 			  		<input type="hidden" id="id_elimina" name="id">
 			  </form>	
 				
-		       <form accept-charset="UTF-8"  action="consultaCrudAutor" class="simple_form" id="defaultForm2"  method="post">
+		       <form accept-charset="UTF-8"  action="consultaCrudMedico" class="simple_form" id="defaultForm2"  method="post">
 
 					<div class="row" style="height: 70px">
 						<div class="col-md-2" >
@@ -74,7 +76,7 @@
 										</thead>
 										<tbody>
 												   
-												<c:forEach items="${sessionScope.autores}" var="x">
+												<c:forEach items="${sessionScope.medicos}" var="x">
 													<tr>
 														<td>${x.idMedico}</td>
 														<td>${x.nombre}</td>
@@ -84,14 +86,15 @@
 														<td>${x.nroCelular}</td>
 														<td>${x.login}</td>
 														<td>${x.password}</td>
-														<td>${x.Especialidad.nombre}</td>
+														<td>${x.especialidad.descripcion}</td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="editar('${x.idAutor}','${x.nombres}','${x.apellido}','${x.dni}','${x.direccion}','${x.pais.idPais}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+															<button type='button' data-toggle='modal' onclick="editar('${x.idMedico}','${x.nombre}','${x.apellido}','${x.dni}','${x.direccion}','${x.nroCelular}',
+															'${x.login}','${x.password}','${x.especialidad.idEspecialidad}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
 																<img src='images/edit.gif' id='id_update' width='auto' height='auto' />
 															</button>
 														</td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="eliminar('${x.idAutor}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'> 
+															<button type='button' data-toggle='modal' onclick="eliminar('${x.idMedico}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'> 
 																<img src='images/delete.gif' width='auto' height='auto' />
 															</button>
 														</td>
@@ -116,7 +119,7 @@
 					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de Medico</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudAutor" class="form-horizontal"     method="post">
+						<form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudMedico" class="form-horizontal"     method="post">
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
@@ -128,53 +131,51 @@
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_nombres">Nombres</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" type="text" id="id_registra_nombres" name="RNombres" placeholder="Ingrese nombres Completos"/>
+													<input class="form-control" type="text" id="id_registra_nombre" name="nombre" placeholder="Ingrese nombres Completos"/>
 		                                        </div>
 		                                    </div>		   
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ape_paterno">Apellido</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_apellido" name="RApellido" placeholder="Ingrese los apellidos" type="text"/>
+													<input class="form-control" id="id_registra_apellido" name="apellido" placeholder="Ingrese los apellidos" type="text"/>
 		                                        </div>
 		                                    </div>   
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ape_materno">DNI</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_dni" name="RDni" placeholder="Ingrese DNI" type="text"/>
+													<input class="form-control" id="id_registra_dni" name="dni" placeholder="Ingrese DNI" type="text"/>
 		                                        </div>
 		                                    </div> 
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Direccion</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_direccion" name="RDireccion" placeholder="Ingrese Su Direccion" type="text"/>
+													<input class="form-control" id="id_registra_direccion" name="direccion" placeholder="Ingrese Su Direccion" type="text"/>
 		                                        </div>
 		                                    </div>    
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ape_materno">NroCelular</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_celular" name="RCelular" placeholder="Ingrese Numero de celular" type="text"/>
+													<input class="form-control" id="id_registra_celular" name="nroCelular" placeholder="Ingrese Numero de celular" type="text"/>
 		                                        </div>
 		                                    </div>    
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Login</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_login" name="Rlogin" placeholder="Ingrese el login" type="text"/>
+													<input class="form-control" id="id_registra_login" name="login" placeholder="Ingrese el login" type="text"/>
 		                                        </div>
 		                                    </div> 
 		                                      <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Password</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_password" name="RPassword" placeholder="Ingrese el Password" type="text"/>
+													<input class="form-control" id="id_registra_password" name="password" placeholder="Ingrese el Password" type="text"/>
 		                                        </div>
 		                                    </div>       
 		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_registra_esspecialidad">Especialidad</label>
+		                                        <label class="col-lg-3 control-label" for="id_registra_especialidad">Especialidad</label>
 		                                        <div class="col-lg-5">
-													<select id="id_reg_pais" name="pais.idPais" class='form-control'>
+													<select id="id_reg_especialidad" name="especialidad.idEspecialidad" class='form-control'>
 							                            	<option value=" ">[Seleccione]</option>
-							                            	<option value=" ">Direccion Medica</option>
-							                            	<option value=" ">Medicina General</option>
-							                            	<option value=" ">Cardiologia</option>    
+							                               
 							                         </select>
 		                                        </div>
 		                                    </div>
@@ -203,22 +204,22 @@
 				<div class="modal-content">
 				<div class="modal-header" style="padding: 35px 50px">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Autor</h4>
+					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Medico</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaCrudAutor" class="form-horizontal"     method="post">
+						<form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaCrudMedico" class="form-horizontal"     method="post">
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
 		                            <div class="panel-heading">
-		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Autor</a></h4>
+		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Medico</a></h4>
 		                            </div>
 		                            <div id="stepOne" class="panel-collapse collapse in">
 		                                <div class="panel-body">
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ID">ID</label>
 		                                        <div class="col-lg-5">
-		                                           <input class="form-control" id="id_ID" readonly="readonly" name="idAutor" type="text" maxlength="8"/>
+		                                           <input class="form-control" id="id_ID" readonly="readonly" name="idMedico" type="text" maxlength="8"/>
 		                                        </div>
 		                                     </div>
 		                             
@@ -226,19 +227,19 @@
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_num_mujeres">Nombres</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" type="text" id="id_actualiza_nombres" name="nombres" placeholder="Ingrese nombres Completos"/>
+													<input class="form-control" type="text" id="id_actualiza_nombre" name="nombre" placeholder="Ingrese nombres Completos"/>
 		                                        </div>
 		                                    </div>		   
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_maxima">Apellido</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_actualiza_apellido" name="Apellidos" placeholder="Ingrese sus apellidos " type="text"/>
+													<input class="form-control" id="id_actualiza_apellido" name="apellido" placeholder="Ingrese sus apellidos " type="text"/>
 		                                        </div>
 		                                    </div>   
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ape_materno">DNI</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_actualiza_dni" name="DNI" placeholder="Ingrese el numero de DNI" type="text"/>
+													<input class="form-control" id="id_actualiza_dni" name="dni" placeholder="Ingrese el numero de DNI" type="text"/>
 		                                        </div>
 		                                    </div> 
 		                                    <div class="form-group">
@@ -262,18 +263,16 @@
 		                                       <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Password</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_actualiza_password" name="Password" placeholder="Ingrese su contrasenia" type="text"/>
+													<input class="form-control" id="id_actualiza_password" name="password" placeholder="Ingrese su contraseÒa" type="text"/>
 		                                        </div>
 		                                    </div>    
 		                                       
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_pais">Especialidad</label>
 		                                        <div class="col-lg-5">
-													<select id="id_act_pais" name="pais.idPais" class='form-control'>
+													<select id="id_act_especialidad" name="especialidad.idEspecialidad" class='form-control'>
 							                            	<option value=" ">[Seleccione]</option> 							                            	
-							                            	<option value=" ">Direccion Medica</option>
-							                            	<option value=" ">Medicina General</option>
-							                            	<option value=" ">Cardiologia</option>      
+							                            	   
 							                         </select>
 		                                        </div>
 		                                    </div>
@@ -302,7 +301,7 @@
 					<div class="modal-content">
 						<div class="modal-header" style="padding: 35px 50px">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4><span class="glyphicon glyphicon-ok-sign"></span> Eliminar Autor</h4>
+							<h4><span class="glyphicon glyphicon-ok-sign"></span> Eliminar Medico</h4>
 						</div>
 				
 						  <div class="modal-footer">
@@ -338,12 +337,16 @@ function registrar(){
 	$('#idModalRegistra').modal("show");
 }
 
-function editar(id,nombres,aPaterno,aMaterno,idPais){	
+function editar(id,nombres,Apellido,Dni,Direccion,Celular,Login,Password,idEspecialidad){	
 	$('input[id=id_ID]').val(id);
-	$('input[id=id_nombres]').val(nombres);
-	$('input[id=id_ape_paterno]').val(aPaterno);
-	$('input[id=id_ape_materno]').val(aMaterno);
-	$('select[id=id_act_pais]').val(idPais);
+	$('input[id=id_actualiza_nombre]').val(nombres);
+	$('input[id=id_actualiza_apellido]').val(Apellido);
+	$('input[id=id_actualiza_dni]').val(Dni);
+	$('input[id=id_actualiza_direccion]').val(Direccion);
+	$('input[id=id_actualiza_celular]').val(Celular);
+	$('input[id=id_actualiza_login]').val(Login);
+	$('input[id=id_actualiza_password]').val(Password);
+	$('select[id=id_act_especialidad]').val(idEspecialidad);
 	$('#idModalActualiza').modal("show");
 }
 
@@ -353,10 +356,10 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-$.getJSON("cargaPais", {}, function(data){
+$.getJSON("cargaEspecialidad", {}, function(data){
 	$.each(data, function(index,item){
-		$("#id_act_pais").append("<option value="+item.idPais +">"+ item.nombre +"</option>");
-		$("#id_reg_pais").append("<option value="+item.idPais +">"+ item.nombre +"</option>");
+		$("#id_act_especialidad").append("<option value="+item.idEspecialidad +">"+ item.descripcion +"</option>");
+		$("#id_reg_especialidad").append("<option value="+item.idEspecialidad +">"+ item.descripcion +"</option>");
 	});
 });
 </script>
@@ -371,15 +374,15 @@ $('#id_form_registra').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-    	nombres: {
-    		selector : '#id_registra_nombres',
+    	nombre: {
+    		selector : '#id_registra_nombre',
             validators: {
                 notEmpty: {
                     message: 'El nombre es un campo obligatorio'
                 },
                 stringLength :{
-                	message:'El nombre es de 5 a 50 caracteres',
-                	min : 5,
+                	message:'El nombre es de 2 a 30 caracteres',
+                	min : 2,
                 	max : 50
                 }
                 ,
@@ -389,16 +392,16 @@ $('#id_form_registra').bootstrapValidator({
                 }
             }
         },
-        RApellido: {
+        apellido: {
     		selector : '#id_registra_apellido',
             validators: {
                 notEmpty: {
                     message: 'Los Apellidos son un campo obligatorio'
                 },
                 stringLength :{
-        	        message:'Los apellidos son de 2 a 40 caracteres',
+        	        message:'Los apellidos son de 2 a 30 caracteres',
         	        min : 2,
-        	        max : 40
+        	        max : 30
                 }
                 ,
                 regexp: {
@@ -408,40 +411,35 @@ $('#id_form_registra').bootstrapValidator({
         
             }
         },
-        RDni: {
+        dni: {
     		selector : '#id_registra_dni',
             validators: {
             	notEmpty: {
-                    message: 'El aDNI es un campo obligatorio'
+                    message: 'El DNI es un campo obligatorio'
                 },
-                stringLength :{
-        	        message:'Son 8 Digitos',
-        	        min : 8,
-        	        max : 8
-               },
+                regexp: {
+                    regexp: /^[0-9]{8}$/,
+                    message: 'el dni es de 8 dÌgitos'
+                }
                
              }
         },
 
-        RDireccion: {
+        direccion: {
     		selector : '#id_registra_direccion',
             validators: {
             	notEmpty: {
-                    message: 'El aDNI es un campo obligatorio'
+                    message: 'La direccion es un campo obligatorio'
                 },
                 stringLength :{
-        	        message:'de 10 a 30 digitos',
+        	        message:'de 10 a 60 caracteres',
         	        min : 10,
-        	        max : 30
-               },
-               regexp: {
-                    regexp: /^[ÒA-Za-z _]*[ÒA-Za-z][ÒA-Za-z _]*$/,
-                    message: 'Direccion Formato Incorrecto'
+        	        max : 60
                }
              }
         },
 
-        RCelular: {
+        nroCelular: {
     		selector : '#id_registra_celular',
             validators: {
             	notEmpty: {
@@ -449,14 +447,13 @@ $('#id_form_registra').bootstrapValidator({
                 },
                 stringLength :{
         	        message:'Son 9 Digitos',
-        	        min : 9,
         	        max : 9
                },
               
              }
         },
         
-        RLogin: {
+        login: {
     		selector : '#id_registra_login',
             validators: {
             	notEmpty: {
@@ -464,7 +461,7 @@ $('#id_form_registra').bootstrapValidator({
                 },
                 stringLength :{
         	        message:' solo letras',
-        	        min : 10,
+        	        min : 1,
         	        max : 30
                },
                regexp: {
@@ -474,22 +471,22 @@ $('#id_form_registra').bootstrapValidator({
              }
         },
 
-        RPassword: {
+        password: {
     		selector : '#id_registra_password',
             validators: {
             	notEmpty: {
-                    message: 'Ingrese Contrasenia'
+                    message: 'Ingrese ContraseÒa'
                 },
                 stringLength :{
-        	        message:'de 10 Digitos a 30',
-        	        min : 10,
+        	        message:'de 1 Digitos a 30',
+        	        min : 1,
         	        max : 30
                },
               
              }
         },
        
-        REspecialidad: {
+        especialidad: {
     		selector : '#id_reg_especialidad',
             validators: {
             	notEmpty: {
@@ -510,15 +507,15 @@ $('#id_form_actualiza').bootstrapValidator({
 	        validating: 'glyphicon glyphicon-refresh'
 	    },
 	    fields: {
-	    	nombres: {
-	    		selector : '#id_registra_nombres',
+	    	nombre: {
+	    		selector : '#id_actualiza_nombre',
 	            validators: {
 	                notEmpty: {
 	                    message: 'El nombre es un campo obligatorio'
 	                },
 	                stringLength :{
-	                	message:'El nombre es de 5 a 50 caracteres',
-	                	min : 5,
+	                	message:'El nombre es de 2 a 30 caracteres',
+	                	min : 2,
 	                	max : 50
 	                }
 	                ,
@@ -528,16 +525,16 @@ $('#id_form_actualiza').bootstrapValidator({
 	                }
 	            }
 	        },
-	        RApellido: {
-	    		selector : '#id_registra_apellido',
+	        apellido: {
+	    		selector : '#id_actualiza_apellido',
 	            validators: {
 	                notEmpty: {
 	                    message: 'Los Apellidos son un campo obligatorio'
 	                },
 	                stringLength :{
-	        	        message:'Los apellidos son de 2 a 40 caracteres',
+	        	        message:'Los apellidos son de 2 a 30 caracteres',
 	        	        min : 2,
-	        	        max : 40
+	        	        max : 30
 	                }
 	                ,
 	                regexp: {
@@ -547,55 +544,49 @@ $('#id_form_actualiza').bootstrapValidator({
 	        
 	            }
 	        },
-	        RDni: {
-	    		selector : '#id_registra_dni',
+	        dni: {
+	    		selector : '#id_actualiza_dni',
 	            validators: {
 	            	notEmpty: {
-	                    message: 'El aDNI es un campo obligatorio'
+	                    message: 'El DNI es un campo obligatorio'
 	                },
-	                stringLength :{
-	        	        message:'Son 8 Digitos',
-	        	        min : 8,
-	        	        max : 8
-	               },
+	                regexp: {
+	                    regexp: /^[0-9]{8}$/,
+	                    message: 'el dni es de 8 dÌgitos'
+	                }
 	               
 	             }
 	        },
 
-	        RDireccion: {
-	    		selector : '#id_registra_direccion',
+	        direccion: {
+	    		selector : '#id_actualiza_direccion',
 	            validators: {
 	            	notEmpty: {
-	                    message: 'El aDNI es un campo obligatorio'
+	                    message: 'La direccion es un campo obligatorio'
 	                },
 	                stringLength :{
-	        	        message:'de 10 a 30 digitos',
+	        	        message:'de 10 a 60 caracteres',
 	        	        min : 10,
-	        	        max : 30
-	               },
-	               regexp: {
-	                    regexp: /^[ÒA-Za-z _]*[ÒA-Za-z][ÒA-Za-z _]*$/,
-	                    message: 'Direccion Formato Incorrecto'
+	        	        max : 60
 	               }
 	             }
 	        },
 
-	        RCelular: {
-	    		selector : '#id_registra_celular',
+	        nroCelular: {
+	    		selector : '#id_actualiza_celular',
 	            validators: {
 	            	notEmpty: {
 	                    message: 'El Numero de Celular es Campo Obligatorio'
 	                },
 	                stringLength :{
 	        	        message:'Son 9 Digitos',
-	        	        min : 9,
 	        	        max : 9
 	               },
 	              
 	             }
 	        },
 	        
-	        RLogin: {
+	        login: {
 	    		selector : '#id_registra_login',
 	            validators: {
 	            	notEmpty: {
@@ -603,7 +594,7 @@ $('#id_form_actualiza').bootstrapValidator({
 	                },
 	                stringLength :{
 	        	        message:' solo letras',
-	        	        min : 10,
+	        	        min : 1,
 	        	        max : 30
 	               },
 	               regexp: {
@@ -613,31 +604,31 @@ $('#id_form_actualiza').bootstrapValidator({
 	             }
 	        },
 
-	        RPassword: {
+	        password: {
 	    		selector : '#id_registra_password',
 	            validators: {
 	            	notEmpty: {
-	                    message: 'Ingrese Contrasenia'
+	                    message: 'Ingrese ContraseÒa'
 	                },
 	                stringLength :{
-	        	        message:'de 10 Digitos a 30',
-	        	        min : 10,
+	        	        message:'de 1 Digitos a 30',
+	        	        min : 1,
 	        	        max : 30
 	               },
 	              
 	             }
 	        },
 	       
-	        REspecialidad: {
-	    		selector : '#id_reg_especialidad',
+	        especialidad: {
+	    		selector : '#id_act_especialidad',
 	            validators: {
 	            	notEmpty: {
 	                    message: 'Seleccionar el Campo Especialidad obligatorio'
 	                }
 	            }
 	        }
-	    	
-	    }  
+	    
+	    }
 	 
 	});
 </script>

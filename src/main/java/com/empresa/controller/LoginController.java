@@ -30,10 +30,6 @@ public class LoginController {
 		return "login";
 	}
 	
-	@RequestMapping("/verIntranetHome")
-	public String verHome() { return "intranetHome"; }
-	
-	
 
 	@RequestMapping("/login")
 	public String login(Medico cliente, HttpSession session, HttpServletRequest request) {
@@ -53,17 +49,17 @@ public class LoginController {
 		}
 	}
 	
+	//AQUI SE AGREGAR LA RUTA DEL HOME JSP
+
+	
+	@RequestMapping("/verIntranetHome")
+	public String verHome() { return "intranetHome"; }
+	
 	@RequestMapping("/home")
 	public String salida() {
 		return "intranetHome";
 	}
-	
-	//AQUI SE AGREGAR LA RUTA DEL JSP
-	@RequestMapping("/verCrudEspecialidad")
-	public String regEspecialidad() { return "crudEspecialidad"; }
-	
-	@RequestMapping("/verCrudMedico")
-	public String regMedico() { return "crudMedico"; }
+
 	
 	@RequestMapping("/verCrudPaciente")
 	public String regPaciente() { return "crudEjemplo"; }

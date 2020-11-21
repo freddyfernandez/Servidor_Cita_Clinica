@@ -2,6 +2,8 @@ package com.empresa.controller;
 
 import java.util.List;
 
+
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.empresa.controller.*;
 import com.empresa.entity.Especialidad;
 import com.empresa.entity.Medico;
 import com.empresa.service.EspecialidadService;
@@ -23,10 +24,16 @@ public class MedicoController {
 	private MedicoServicio MedicoService;
 	
 	@Autowired
-	
 	private EspecialidadService EspecialidadService;
 	
-	
+	//ruta de inicial mapeada de la base de datos
+	@RequestMapping("/verCrudMedico")
+	public String regMedico(HttpSession session) {
+		List<Medico> data = MedicoService.listarTodos();
+		session.setAttribute("medicos", data);
+		return "crudMedico"; 
+	}
+
 	@RequestMapping("/cargaEspecialidad")
 	@ResponseBody
 	public List<Especialidad> listaEspecialidad() {
@@ -39,21 +46,21 @@ public class MedicoController {
 	@RequestMapping("/consultaCrudMedico")
 	public String consulta1(String filtro, HttpSession session) {
 		List<Medico> data = MedicoService.buscaPorNombre(filtro +"%");
-		session.setAttribute("Medico", data);
+		session.setAttribute("medicos", data);
 		return "crudMedico";
 	}
 	
 	@RequestMapping("/eliminaCrudMedico")
 	public String eliminaMedico(Integer id, HttpSession session) {
 		MedicoService.eliminarMedico(id);
-		return "redirect:salida3";
+		return "redirect:salida1";
 	}
 	
 	
 	
 	
 	
-	@RequestMapping("/insertarMedico")
+	@RequestMapping("/registraActualizaCrudMedico")
 	public String regMedico(Medico obj, HttpSession session) {
 		try {
 			Medico objSalida = MedicoService.InsertaMedico(obj);
@@ -70,9 +77,12 @@ public class MedicoController {
 	}
 	
 	@RequestMapping("/salida1")
-	public String salida() {
+	public String salida(HttpSession session) {
+		List<Medico> data = MedicoService.listarTodos();
+		session.setAttribute("medicos", data);
 		return "crudMedico";
 	}
+	
 	
 
 }

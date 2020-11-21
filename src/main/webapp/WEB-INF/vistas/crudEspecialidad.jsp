@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
 <jsp:include page="intranetValida.jsp" />
 <!DOCTYPE html>
 <html lang="esS" >
@@ -25,11 +27,8 @@
 <div class="container"style="margin-top: 4%">
  <h1>Especialidades</h1>
 		 <div class="col-md-23" >  
-			  <form id="idFormElimina" action="eliminaCrudAutor">
-			  		<input type="hidden" id="id_elimina" name="id">
-			  </form>	
 				
-		       <form accept-charset="UTF-8"  action="consultaCrudAutor" class="simple_form" id="defaultForm2"  method="post">
+		       <form accept-charset="UTF-8"  action="consultaCrudEspecialidad" class="simple_form" id="defaultForm2"  method="post">
 
 					<div class="row" style="height: 70px">
 						<div class="col-md-2" >
@@ -60,14 +59,14 @@
 										<thead>
 											<tr>
 												<th>ID</th>
-												<th>Descipcion</th>												
+												<th>Descripcion</th>												
 												<th>Actualiza</th>
-												<th>Elimina</th>
+											
 											</tr>
 										</thead>
 										<tbody>
 												   
-												<c:forEach items="${sessionScope.autores}" var="x">
+												<c:forEach items="${sessionScope.especialidades}" var="x">
 													<tr>
 														<td>${x.idEspecialidad}</td>
 														<td>${x.descripcion}</td>														
@@ -77,11 +76,7 @@
 																<img src='images/edit.gif' id='id_update' width='auto' height='auto' />
 															</button>
 														</td>
-														<td>
-															<button type='button' data-toggle='modal' onclick="eliminar('${x.idEspecialidad}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'> 
-																<img src='images/delete.gif' width='auto' height='auto' />
-															</button>
-														</td>
+														
 													</tr>
 												</c:forEach>
 										</tbody>
@@ -103,7 +98,7 @@
 					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de Especialidad</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudAutor" class="form-horizontal"     method="post">
+						<form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudEspecialidad" class="form-horizontal"     method="post">
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
@@ -115,7 +110,7 @@
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_nombres">Especialidad</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" type="text" id="id_nombres" name="nombres" placeholder="Ingrese La Especialidad"/>
+													<input class="form-control" type="text" id="id_nombres" name="descripcion" placeholder="Ingrese La Especialidad"/>
 		                                        </div>
 		                                    </div>		   
 		                                   
@@ -148,7 +143,7 @@
 					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Autor</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaCrudAutor" class="form-horizontal"     method="post">
+						<form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaCrudEspecialidad" class="form-horizontal"     method="post">
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
@@ -160,7 +155,7 @@
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ID">ID</label>
 		                                        <div class="col-lg-5">
-		                                           <input class="form-control" id="id_ID" readonly="readonly" name="idAutor" type="text" maxlength="8"/>
+		                                           <input class="form-control" id="id_ID" readonly="readonly" name="idEspecialidad" type="text" maxlength="8"/>
 		                                        </div>
 		                                     </div>
 		                             
@@ -168,14 +163,10 @@
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_num_mujeres">Especialidad</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" type="text" id="id_nombres" name="nombres" placeholder="Ingrese nombres Completos"/>
+													<input class="form-control" type="text" id="id_nombres" name="descripcion" placeholder="Ingrese nombres Completos"/>
 		                                        </div>
 		                                    </div>		   
-		                                    
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_act_pais">Pais</label>
-		                                        
-		                                    </div>
+		                                  
 		                                    <div class="form-group">
 		                                        <div class="col-lg-9 col-lg-offset-3">
 		                                        	<button type="submit" class="btn btn-primary">ACTUALIZA</button>
@@ -194,23 +185,6 @@
 			
 		</div>
 		
-		<div class="modal fade" id="idModalElimina" >
-					<div class="modal-dialog" style="width: 60%">
-				 	
-				 	<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header" style="padding: 35px 50px">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4><span class="glyphicon glyphicon-ok-sign"></span> Eliminar Autor</h4>
-						</div>
-				
-						  <div class="modal-footer">
-						    <button type="button" id="idBtnElimina" name="modalDe" class="btn btn-primary">ELIMINAR</button>
-						    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-						  </div>
-					</div>
-				</div>
-				</div>
 				
 
 </div>
@@ -228,21 +202,13 @@ $("#idBtnElimina").click(function(){
 });
 
 
-function eliminar(id){	
-	$('#idModalElimina').modal('show');
-	$('#id_elimina').val(id);	
-}
-
 function registrar(){	
 	$('#idModalRegistra').modal("show");
 }
 
-function editar(id,nombres,aPaterno,aMaterno,idPais){	
+function editar(id,descripcion){	
 	$('input[id=id_ID]').val(id);
-	$('input[id=id_nombres]').val(nombres);
-	$('input[id=id_ape_paterno]').val(aPaterno);
-	$('input[id=id_ape_materno]').val(aMaterno);
-	$('select[id=id_act_pais]').val(idPais);
+	$('input[id=id_nombres]').val(descripcion);
 	$('#idModalActualiza').modal("show");
 }
 
@@ -251,14 +217,6 @@ $(document).ready(function() {
 } );
 </script>
 
-<script type="text/javascript">
-$.getJSON("cargaPais", {}, function(data){
-	$.each(data, function(index,item){
-		$("#id_act_pais").append("<option value="+item.idPais +">"+ item.nombre +"</option>");
-		$("#id_reg_pais").append("<option value="+item.idPais +">"+ item.nombre +"</option>");
-	});
-});
-</script>
 
 <script type="text/javascript">
 
@@ -285,51 +243,6 @@ $('#id_form_registra').bootstrapValidator({
                 regexp: {
                      regexp: /^[ÒA-Za-z _]*[ÒA-Za-z][ÒA-Za-z _]*$/,
                      message: 'Debe contener solo letras'
-                }
-            }
-        },
-        apaterno: {
-    		selector : '#id_ape_paterno',
-            validators: {
-                notEmpty: {
-                    message: 'El  apellido paterno es un campo obligatorio'
-                },
-                stringLength :{
-        	        message:'El  apellido paterno es de 2 a 30 caracteres',
-        	        min : 2,
-        	        max : 30
-                }
-                ,
-                regexp: {
-                     regexp: /^[ÒA-Za-z _]*[ÒA-Za-z][ÒA-Za-z _]*$/,
-                     message: 'Debe contener solo letras'
-                }
-        
-            }
-        },
-        amaterno: {
-    		selector : '#id_ape_materno',
-            validators: {
-            	notEmpty: {
-                    message: 'El apellido materno es un campo obligatorio'
-                },
-                stringLength :{
-        	        message:'El  apellido materno es de 2 a 30 caracteres',
-        	        min : 2,
-        	        max : 30
-               },
-               regexp: {
-                    regexp: /^[ÒA-Za-z _]*[ÒA-Za-z][ÒA-Za-z _]*$/,
-                    message: 'Debe contener solo letras'
-               }
-             }
-        },
-       
-        pais: {
-    		selector : '#id_reg_pais',
-            validators: {
-            	notEmpty: {
-                    message: 'Seleccionar el Campo Pais obligatorio'
                 }
             }
         }
@@ -363,53 +276,8 @@ $('#id_form_actualiza').bootstrapValidator({
                      message: 'Debe contener solo letras'
                 }
             }
-        },
-        apaterno: {
-    		selector : '#id_ape_paterno',
-            validators: {
-                notEmpty: {
-                    message: 'El  apellido paterno es un campo obligatorio'
-                },
-                stringLength :{
-        	        message:'El  apellido paterno es de 2 a 30 caracteres',
-        	        min : 2,
-        	        max : 30
-                }
-                ,
-                regexp: {
-                     regexp: /^[ÒA-Za-z _]*[ÒA-Za-z][ÒA-Za-z _]*$/,
-                     message: 'Debe contener solo letras'
-                }
-        
-            }
-        },
-        amaterno: {
-    		selector : '#id_ape_materno',
-            validators: {
-            	notEmpty: {
-                    message: 'El apellido materno es un campo obligatorio'
-                },
-                stringLength :{
-        	        message:'El  apellido materno es de 2 a 30 caracteres',
-        	        min : 2,
-        	        max : 30
-               },
-               regexp: {
-                    regexp: /^[ÒA-Za-z _]*[ÒA-Za-z][ÒA-Za-z _]*$/,
-                    message: 'Debe contener solo letras'
-               }
-             }
-        },
-       
-        pais: {
-    		selector : '#id_act_pais',
-            validators: {
-            	notEmpty: {
-                    message: 'Seleccionar el Campo Pais obligatorio'
-                }
-            }
         }
-    	
+       
     }  
  
 });
