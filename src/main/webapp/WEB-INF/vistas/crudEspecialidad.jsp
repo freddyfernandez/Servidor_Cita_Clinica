@@ -60,8 +60,7 @@
 										<thead>
 											<tr>
 												<th>ID</th>
-												<th>Descipcion</th>
-												
+												<th>Descipcion</th>												
 												<th>Actualiza</th>
 												<th>Elimina</th>
 											</tr>
@@ -70,16 +69,16 @@
 												   
 												<c:forEach items="${sessionScope.autores}" var="x">
 													<tr>
-														<td>${x.idAutor}</td>
-														<td>${x.nombres}</td>														
-														<td>${x.pais.nombre}</td>
+														<td>${x.idEspecialidad}</td>
+														<td>${x.descripcion}</td>														
+														
 														<td>
-															<button type='button' data-toggle='modal' onclick="editar('${x.idAutor}','${x.nombres}','${x.apaterno}','${x.amaterno}','${x.pais.idPais}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+															<button type='button' data-toggle='modal' onclick="editar('${x.idEspecialidad}','${x.descripcion}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
 																<img src='images/edit.gif' id='id_update' width='auto' height='auto' />
 															</button>
 														</td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="eliminar('${x.idAutor}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'> 
+															<button type='button' data-toggle='modal' onclick="eliminar('${x.idEspecialidad}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'> 
 																<img src='images/delete.gif' width='auto' height='auto' />
 															</button>
 														</td>
@@ -101,7 +100,7 @@
 				<div class="modal-content">
 				<div class="modal-header" style="padding: 35px 50px">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de Autor</h4>
+					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de Especialidad</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
 						<form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudAutor" class="form-horizontal"     method="post">
@@ -116,18 +115,11 @@
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_nombres">Especialidad</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" type="text" id="id_nombres" name="nombres" placeholder="Ingrese nombres Completos"/>
+													<input class="form-control" type="text" id="id_nombres" name="nombres" placeholder="Ingrese La Especialidad"/>
 		                                        </div>
 		                                    </div>		   
 		                                   
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_act_pais">Pais</label>
-		                                        <div class="col-lg-5">
-													<select id="id_reg_pais" name="pais.idPais" class='form-control'>
-							                            	<option value=" ">[Seleccione]</option>    
-							                         </select>
-		                                        </div>
-		                                    </div>
+		                                    
 		                                    <div class="form-group">
 		                                        <div class="col-lg-9 col-lg-offset-3">
 		                                        	<button type="submit" class="btn btn-primary">REGISTRA</button>
@@ -182,11 +174,7 @@
 		                                    
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_pais">Pais</label>
-		                                        <div class="col-lg-5">
-													<select id="id_act_pais" name="pais.idPais" class='form-control'>
-							                            	<option value=" ">[Seleccione]</option>    
-							                         </select>
-		                                        </div>
+		                                        
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="col-lg-9 col-lg-offset-3">

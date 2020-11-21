@@ -21,3 +21,4 @@ public interface MedicoServicio {
 	public abstract List<Medico> buscaPorNombre(String filtro);
 
 }
+
