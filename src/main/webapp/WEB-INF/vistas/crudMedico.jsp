@@ -86,7 +86,7 @@
 														<td>${x.password}</td>
 														<td>${x.Especialidad.nombre}</td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="editar('${x.idAutor}','${x.nombres}','${x.apaterno}','${x.amaterno}','${x.pais.idPais}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+															<button type='button' data-toggle='modal' onclick="editar('${x.idAutor}','${x.nombres}','${x.apellido}','${x.dni}','${x.direccion}','${x.pais.idPais}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
 																<img src='images/edit.gif' id='id_update' width='auto' height='auto' />
 															</button>
 														</td>
