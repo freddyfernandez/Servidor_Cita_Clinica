@@ -2,10 +2,8 @@ package com.empresa.service;
 
 import java.util.List;
 
+
 import com.empresa.entity.Medico;
-import com.empresa.service.*;
-
-
 
 public interface MedicoServicio {
 
@@ -19,6 +17,8 @@ public interface MedicoServicio {
 	public abstract void eliminarMedico(int id);
 	
 	public abstract List<Medico> buscaPorNombre(String filtro);
+	
+	public abstract List<Medico> buscaPorEspecialidad(String filtro);
 
 }
 

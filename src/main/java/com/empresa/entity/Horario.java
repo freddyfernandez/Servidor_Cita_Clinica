@@ -1,6 +1,9 @@
 package com.empresa.entity;
 
+
 import java.util.Date;
+
+
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +27,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 @Entity
 @Table(name = "horario")
 
@@ -33,17 +35,21 @@ public class Horario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idHorario;
 	
+	
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date fechaHorario;
+	
 	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern = "hh:mm:ss")
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaInicio;
 	
 	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern = "hh:mm:ss")
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaFin;
 	
 	private String dia;
-	
-	
 	
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch = FetchType.LAZY)

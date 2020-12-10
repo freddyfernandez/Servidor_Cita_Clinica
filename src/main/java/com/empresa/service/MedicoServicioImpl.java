@@ -2,12 +2,13 @@ package com.empresa.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.empresa.entity.Medico;
 import com.empresa.repository.MedicoRepository;
-import com.empresa.service.*;
+
 
 
 
@@ -49,6 +50,14 @@ public class MedicoServicioImpl implements MedicoServicio {
 	public void eliminarMedico(int id) {
 		repository.deleteById(id);
 		
+	}
+
+
+
+	@Override
+	public List<Medico> buscaPorEspecialidad(String filtro) {
+		// TODO Auto-generated method stub
+		return repository.buscarPorEspecialidad(filtro);
 	}
 
 }

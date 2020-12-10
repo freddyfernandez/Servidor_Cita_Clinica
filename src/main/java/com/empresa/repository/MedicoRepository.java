@@ -18,8 +18,12 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	public abstract List<Medico> buscarPorNombre(@Param("nomb") String filtro);
 
 	//es igual que mapear el metodo1 por ids
+	//consulta api para la api rest filtrado por especialidad
 	@Query("Select m from Medico m, Especialidad e where "
 			+ " m.especialidad.idEspecialidad = e.idEspecialidad and "
-			+ " m.especialidad.descripcion = :nomb")
-	public abstract List<Medico> buscarPorNombre2(@Param("nomb") String filtro);
+			+ " m.especialidad.descripcion like :nomb")
+	public abstract List<Medico> buscarPorEspecialidad(@Param("nomb") String filtro);
+	
+	
+	
 }

@@ -16,6 +16,7 @@ import lombok.Setter;
 @Table(name = "usuario_has_rol")
 public class UsuarioHasRol {
 
+	
 	@EmbeddedId
 	private UsuarioHasRolPK usuarioHasRolPk;
 

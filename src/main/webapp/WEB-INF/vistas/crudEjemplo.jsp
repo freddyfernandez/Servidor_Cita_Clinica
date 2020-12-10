@@ -22,7 +22,7 @@
 
 <jsp:include page="intranetCabecera.jsp" />
 
-<div class="container"style="margin-top: 4%">
+<div class="container" style="margin-top: 4%">
  <h1>Crud de Autor</h1>
 		 <div class="col-md-23" >  
 			  <form id="idFormElimina" action="eliminaCrudAutor">

@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.empresa.entity.Especialidad;
 import com.empresa.entity.Medico;
+import com.empresa.entity.UsuarioHasRol;
+import com.empresa.entity.UsuarioHasRolPK;
 import com.empresa.service.EspecialidadService;
 import com.empresa.service.MedicoServicio;
+import com.empresa.service.UsuarioHasRolService;
 
 
 @Controller
@@ -25,6 +29,9 @@ public class MedicoController {
 	
 	@Autowired
 	private EspecialidadService EspecialidadService;
+	
+	@Autowired
+	private UsuarioHasRolService usuarioHasRolService;
 	
 	//ruta de inicial mapeada de la base de datos
 	@RequestMapping("/verCrudMedico")
@@ -64,6 +71,20 @@ public class MedicoController {
 	public String regMedico(Medico obj, HttpSession session) {
 		try {
 			Medico objSalida = MedicoService.InsertaMedico(obj);
+			
+			
+			//registra de rol con usuario
+			
+			UsuarioHasRolPK pk = new UsuarioHasRolPK();
+			pk.setIdRol(2);
+			pk.setIdUsuario(obj.getIdMedico());
+			
+			UsuarioHasRol uhr = new UsuarioHasRol();
+		
+			uhr.setUsuario(objSalida);
+			uhr.setUsuarioHasRolPk(pk);
+			usuarioHasRolService.InsertaUsuarioHasRol(uhr);
+			
 			if(objSalida != null) {
 				session.setAttribute("MENSAJE","Se registró correctamente");
 			}else {

@@ -21,7 +21,5 @@ public class Rol {
 	private String nombre;
 	private String estado;
 	
-
-	
 	
 }

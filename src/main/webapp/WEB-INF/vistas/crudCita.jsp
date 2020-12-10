@@ -25,7 +25,7 @@
 <jsp:include page="intranetCabecera.jsp" />
 
 <div class="container" style="margin-top: 4%">
- <h1>Crud de Medico</h1>
+ <h1>HISTORIAL DEL CITAS</h1>
 		 <div class="col-md-23" >  
 			  <form id="idFormElimina" action="eliminaCrudMedico">
 			  		<input type="hidden" id="id_elimina" name="id">
@@ -40,9 +40,7 @@
 						<div class="col-md-2" >
 							<button type="submit" class="btn btn-primary" style="width: 150px">FILTRA</button>
 						</div>
-						<div class="col-md-2">
-							<button type="button" data-toggle='modal' onclick="registrar();"  class='btn btn-success' id="validateBtnw2" style="width: 150px">REGISTRA</button>
-						</div>
+			
 						<div class="col-md-4">
 							<c:if test="${sessionScope.MENSAJE != null }">
 									<div class="alert alert-success" id="success-alert">
@@ -61,43 +59,33 @@
 									<table id="tablePaginacion" class="table table-striped table-bordered" >
 										<thead>
 											<tr>
-												<th>ID</th>
-												<th>Nombres</th>
-												<th>Apellido</th>
-												<th>DNI</th>
-												<th>Direccion</th>
-												<th>Nro Celular</th>
-												<th>Loguin</th>
-												<th>Password</th>
-												<th>Especialidad</th>
+												
+												<th>Id CIta</th>
+												<th>Fecha</th>
+												<th>Hora Inicio</th>
+												<th>Hora Fin</th>
+												<th>Estado</th>
+												<th>Paciente</th>
 												<th>Actualiza</th>
-												<th>Elimina</th>
+												
 											</tr>
 										</thead>
 										<tbody>
-												   
-												<c:forEach items="${sessionScope.medicos}" var="x">
+												<!-- ES IMPORTANTE MAPEAR IGUAL EL X.ATRIBUTO CON LA CLASE--> 
+												<c:forEach items="${sessionScope.Citas}" var="x">
 													<tr>
-														<td>${x.idMedico}</td>
-														<td>${x.nombre}</td>
-														<td>${x.apellido}</td>
-														<td>${x.dni}</td>
-														<td>${x.direccion}</td>
-														<td>${x.nroCelular}</td>
-														<td>${x.login}</td>
-														<td>${x.password}</td>
-														<td>${x.especialidad.descripcion}</td>
+														<td>${x.idCita}</td>
+														<td>${x.fechaCita}</td>
+														<td>${x.horaInicio}</td>
+														<td>${x.horaFin}</td>
+														<td>${x.estado}</td>
+														<td>${x.paciente.nombre}</td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="editar('${x.idMedico}','${x.nombre}','${x.apellido}','${x.dni}','${x.direccion}','${x.nroCelular}',
-															'${x.login}','${x.password}','${x.especialidad.idEspecialidad}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+															<button type='button' data-toggle='modal' onclick="editar('${x.idCita}','${x.fechaCita}','${x.horaInicio}','${x.horaFin}','${x.estado}','${x.medico.idMedico}','${x.paciente.idPaciente}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
 																<img src='images/edit.gif' id='id_update' width='auto' height='auto' />
 															</button>
 														</td>
-														<td>
-															<button type='button' data-toggle='modal' onclick="eliminar('${x.idMedico}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'> 
-																<img src='images/delete.gif' width='auto' height='auto' />
-															</button>
-														</td>
+												
 													</tr>
 												</c:forEach>
 										</tbody>
@@ -109,93 +97,6 @@
 		 		</form>
 		  </div>
   
-  	 <div class="modal fade" id="idModalRegistra" >
-			<div class="modal-dialog" style="width: 60%">
-		
-				<!-- Modal content-->
-				<div class="modal-content">
-				<div class="modal-header" style="padding: 35px 50px">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de Medico</h4>
-				</div>
-				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudMedico" class="form-horizontal"     method="post">
-		                    <div class="panel-group" id="steps">
-		                        <!-- Step 1 -->
-		                        <div class="panel panel-default">
-		                            <div class="panel-heading">
-		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Medico</a></h4>
-		                            </div>
-		                            <div id="stepOne" class="panel-collapse collapse in">
-		                                <div class="panel-body">
-		                                     <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_nombres">Nombres</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" type="text" id="id_registra_nombre" name="nombre" placeholder="Ingrese nombres Completos"/>
-		                                        </div>
-		                                    </div>		   
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_paterno">Apellido</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_apellido" name="apellido" placeholder="Ingrese los apellidos" type="text"/>
-		                                        </div>
-		                                    </div>   
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">DNI</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_dni" name="dni" placeholder="Ingrese DNI" type="text"/>
-		                                        </div>
-		                                    </div> 
-		                                     <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Direccion</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_direccion" name="direccion" placeholder="Ingrese Su Direccion" type="text"/>
-		                                        </div>
-		                                    </div>    
-		                                     <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">NroCelular</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_celular" name="nroCelular" placeholder="Ingrese Numero de celular" type="text"/>
-		                                        </div>
-		                                    </div>    
-		                                     <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Login</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_login" name="login" placeholder="Ingrese el login" type="text"/>
-		                                        </div>
-		                                    </div> 
-		                                      <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Password</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_registra_password" name="password" placeholder="Ingrese el Password" type="text"/>
-		                                        </div>
-		                                    </div>       
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_registra_especialidad">Especialidad</label>
-		                                        <div class="col-lg-5">
-													<select id="id_reg_especialidad" name="especialidad.idEspecialidad" class='form-control'>
-							                            	<option value=" ">[Seleccione]</option>
-							                               
-							                         </select>
-		                                        </div>
-		                                    </div>
-		                                    <div class="form-group">
-		                                        <div class="col-lg-9 col-lg-offset-3">
-		                                        	<button type="submit" class="btn btn-primary">REGISTRA</button>
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        
-		                    </div>
-		                </form>   
-				
-				</div>
-			</div>
-		</div>
-			
-		</div>
   
 		 <div class="modal fade" id="idModalActualiza" >
 			<div class="modal-dialog" style="width: 60%">
@@ -204,78 +105,71 @@
 				<div class="modal-content">
 				<div class="modal-header" style="padding: 35px 50px">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Medico</h4>
+					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Cita</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaCrudMedico" class="form-horizontal"     method="post">
+						<form id="id_form_actualiza" accept-charset="UTF-8"  action="ActualizaCita" class="form-horizontal"     method="post">
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
 		                            <div class="panel-heading">
-		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Medico</a></h4>
+		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos de la Cita</a></h4>
 		                            </div>
 		                            <div id="stepOne" class="panel-collapse collapse in">
 		                                <div class="panel-body">
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_ID">ID</label>
 		                                        <div class="col-lg-5">
-		                                           <input class="form-control" id="id_ID" readonly="readonly" name="idMedico" type="text" maxlength="8"/>
+		                                           <input class="form-control" id="id_ID" readonly="readonly" name="idCita" type="text" maxlength="8"/>
 		                                        </div>
 		                                     </div>
 		                             
+		                                     <div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Hora inicio</label>
+		                                        <div class="col-lg-5">
+													<input class="form-control" id="id_horainicio" name="horaInicio" type="text"/>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                        <div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Hora fin</label>
+		                                        <div class="col-lg-5">
+													<input class="form-control" id="id_horafin" name="horaFin" type="text"/>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                   
+		                                    <div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_ape_materno">fecha</label>
+		                                        <div class="col-lg-5">
+													<input class="form-control" id="id_fecha" name="fechaCita" type="date"/>
+		                                        </div>
+		                                    </div>
 		                                 
 		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_num_mujeres">Nombres</label>
+		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Estado</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" type="text" id="id_actualiza_nombre" name="nombre" placeholder="Ingrese nombres Completos"/>
-		                                        </div>
-		                                    </div>		   
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_maxima">Apellido</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_actualiza_apellido" name="apellido" placeholder="Ingrese sus apellidos " type="text"/>
-		                                        </div>
-		                                    </div>   
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">DNI</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_actualiza_dni" name="dni" placeholder="Ingrese el numero de DNI" type="text"/>
-		                                        </div>
-		                                    </div> 
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Direccion</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_actualiza_direccion" name="direccion" placeholder="Ingrese la Direccion" type="text"/>
+													<input class="form-control" id="id_estado" name="estado" type="text"/>
 		                                        </div>
 		                                    </div>
-		                                       <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">nroCelular</label>
+		                                    
+		                                        <div class="form-group">
+		                                     
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_actualiza_celular" name="nroCelular" placeholder="Ingrese el numero de Celular" type="text"/>
+													<input type="hidden" class="form-control" id="id_paciente" name="paciente.idPaciente" type="text"/>
 		                                        </div>
-		                                    </div> 
-		                                       <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">login</label>
+		                                    </div>
+		                                        <div class="form-group">
+		                                      
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_actualiza_login" name="login" placeholder="Ingrese el login" type="text"/>
+													<input type="hidden" class="form-control" id="id_medico" name="medico.idMedico" type="text"/>
 		                                        </div>
-		                                    </div>  
-		                                       <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ape_materno">Password</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_actualiza_password" name="password" placeholder="Ingrese su contraseña" type="text"/>
-		                                        </div>
-		                                    </div>    
+		                                    </div>
+		                                    
+		                                    
 		                                       
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_act_pais">Especialidad</label>
-		                                        <div class="col-lg-5">
-													<select id="id_act_especialidad" name="especialidad.idEspecialidad" class='form-control'>
-							                            	<option value=" ">[Seleccione]</option> 							                            	
-							                            	   
-							                         </select>
-		                                        </div>
-		                                    </div>
+		                                       
+		                          
 		                                    <div class="form-group">
 		                                        <div class="col-lg-9 col-lg-offset-3">
 		                                        	<button type="submit" class="btn btn-primary">ACTUALIZA</button>
@@ -333,21 +227,18 @@ function eliminar(id){
 	$('#id_elimina').val(id);	
 }
 
-function registrar(){	
-	$('#idModalRegistra').modal("show");
-}
 
-function editar(id,nombres,Apellido,Dni,Direccion,Celular,Login,Password,idEspecialidad){	
+
+function editar(id,fecha,horainicio,horafin,estado,idmedico,idpaciente){	
 	$('input[id=id_ID]').val(id);
-	$('input[id=id_actualiza_nombre]').val(nombres);
-	$('input[id=id_actualiza_apellido]').val(Apellido);
-	$('input[id=id_actualiza_dni]').val(Dni);
-	$('input[id=id_actualiza_direccion]').val(Direccion);
-	$('input[id=id_actualiza_celular]').val(Celular);
-	$('input[id=id_actualiza_login]').val(Login);
-	$('input[id=id_actualiza_password]').val(Password);
-	$('select[id=id_act_especialidad]').val(idEspecialidad);
+	$('input[id=id_horainicio]').val(horainicio);
+	$('input[id=id_horafin]').val(horafin);
+	$('input[id=id_fecha]').val(fecha);
+	$('input[id=id_estado]').val(estado);
+	$('input[id=id_medico]').val(idmedico);
+	$('input[id=id_paciente]').val(idpaciente);
 	$('#idModalActualiza').modal("show");
+
 }
 
 $(document).ready(function() {

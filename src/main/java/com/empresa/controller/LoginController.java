@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -64,13 +65,6 @@ public class LoginController {
 	@RequestMapping("/verCrudPaciente")
 	public String regPaciente() { return "crudEjemplo"; }
 	
-	@RequestMapping("/verCrudHorario")
-	public String regHorario() { return "crudEjemplo"; }
-	
-	@RequestMapping("/verCrudCita")
-	public String regCita() { return "crudEjemplo"; }
-	
-	//
 	
 	
 	@RequestMapping("/logout")
